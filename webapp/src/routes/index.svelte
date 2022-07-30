@@ -1,5 +1,5 @@
 <script>
-    import NavBar from './nav.svelte'
+    import NavBar from '../components/nav.svelte'
 </script>
 
 <NavBar current_page={'index'}/>
