@@ -4,7 +4,7 @@
 
 <NavBar current_page={'index'}/>
 
-<main class="h-screen">
+<main class="h-screen w-4/5">
     <img src="images/cover.jpg" alt="LD & the Independent Variable" />
     <img class="pfp" src="images/pfp.jpg" alt="Liam Davis" />
     <p class="intro">
