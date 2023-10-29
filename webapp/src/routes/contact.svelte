@@ -4,7 +4,7 @@
 </script>
 
 
-<main class="min-h-screen w-11/12 lg:w-4/5 xl:w-2/3 2xl:w-1/2">
+<main class="min-h-screen w-11/12 lg:w-4/5 xl:w-2/3 2xl:w-2/3">
     <NavBar current_page={'contact'}/>
 
     <div class="email-form flex flex-row">
