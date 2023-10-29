@@ -7,7 +7,10 @@
 
 :root {
     --fontColor: #f0ede5;
-    --accentColor: #bfdbfe;
+    --accentLight: #bfdbfe;
+    /*--accentDark: #1561bf;*/
+    --backgroundDark: #2E73DC;
+    --backgroundLight: #4C86DF;
 }
 
 * {
@@ -18,7 +21,7 @@
 }
 
 body {
-    background-image: linear-gradient(to bottom right, #2E73DC, #4C86DF);
+    background-image: linear-gradient(to bottom right, var(--backgroundDark), var(--backgroundLight));
 }
 
 .pfp {

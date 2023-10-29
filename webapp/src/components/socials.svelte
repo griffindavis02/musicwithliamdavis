@@ -21,7 +21,7 @@
 }
 
 .icon:hover {
-    background-color: var(--accentColor);
+    background-color: var(--accentLight);
     opacity: 50%;
     transition-timing-function: ease-in-out;
     transition-duration: 150ms;
