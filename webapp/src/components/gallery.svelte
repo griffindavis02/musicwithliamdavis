@@ -2,16 +2,17 @@
 </script>
 
 <!-- https://www.w3schools.com/howto/howto_css_image_grid_responsive.asp -->
+<!--FIXME have alt entered into db with image for population here -->
 <div class="row">
     <div class="column">
-        <img src="images/DSC_0576.JPG">
-        <img src="images/DSC_0324.JPG">
-        <img src="images/pats.jpg">
+        <img src="images/DSC_0576.JPG" alt="">
+        <img src="images/DSC_0324.JPG" alt="">
+        <img src="images/pats.jpg" alt="">
     </div>
     <div class="column">
-        <img src="images/DSC_0631.JPG">
-        <img src="images/DSC_0560.JPG">
-        <img src="images/DSC_0658.JPG">
+        <img src="images/DSC_0631.JPG" alt="">
+        <img src="images/DSC_0560.JPG" alt="">
+        <img src="images/DSC_0658.JPG" alt="">
     </div>
 </div>
 
