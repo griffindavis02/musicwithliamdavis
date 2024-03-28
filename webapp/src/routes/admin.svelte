@@ -1,47 +1,78 @@
 <script>
-    import NavBar from '../components/nav.svelte'
-    import Gigs from '../components/admin/gigs.svelte'
-    import Footer from '../components/footer.svelte'
+    import NavBar from '../components/nav.svelte';
+    import Gigs from '../components/admin/gigs.svelte';
+    import Footer from '../components/footer.svelte';
+    import { initFirebase } from '$lib/firebase';
+    import { collection, addDoc, Timestamp } from 'firebase/firestore/lite';
 
     const placeholderHandler = (event) => {
         return;
-    }
+    };
 
-    const addGigHandler = (event) => {
-        alert('Not implemented!');
-    }
+    const addGigHandler = async (event) => {
+        const formData = new FormData(event.target);
+        const date = formData.get('date');
+        let post_data = {
+            venue: formData.get('venue'),
+            city: formData.get('city'),
+            state: formData.get('state'),
+            startDate: Timestamp.fromDate(
+                new Date(
+                    Date.parse(
+                        String(date) + ' ' + String(formData.get('startTime'))
+                    )
+                )
+            ),
+            endDate: Timestamp.fromDate(
+                new Date(
+                    Date.parse(
+                        String(date) + ' ' + String(formData.get('endTime'))
+                    )
+                )
+            ),
+        };
+        console.log(post_data);
+
+        const { db } = initFirebase();
+        const gigsCol = collection(db, 'gigs');
+        const docRef = await addDoc(gigsCol, post_data);
+        console.log('Gig added with id: ', docRef.id);
+    };
 
     const pastGigsHandler = (event) => {
         alert('Not implemented!');
-    }
+    };
 
     const uploadCoverImageHandler = (event) => {
         alert('Not implemented!');
-    }
+    };
 
     const uploadPfpHandler = (event) => {
         alert('Not implemented!');
-    }
+    };
 
     const editGalleryHandler = (event) => {
         alert('Not implemented!');
-    }
+    };
 </script>
 
-
 <main class="min-h-screen w-11/12 lg:w-4/5 xl:w-2/3 2xl:w-2/3">
-    <NavBar current_page={'admin'}/>
+    <NavBar current_page={'admin'} />
 
     <div class="container flex flex-row">
-        <form method="POST" class="email-form flex flex-col justify-start basis-1/2">
+        <form
+            method="POST"
+            class="email-form flex flex-col justify-start basis-1/2"
+            on:submit|preventDefault={addGigHandler}
+        >
             <h2 class="text-xl font-bold">Add a Gig</h2>
             <label>
                 Venue:
-                <input name="venue" class="std-input">
+                <input name="venue" class="std-input" />
             </label>
             <label>
                 City:
-                <input name="city" class="std-input">
+                <input name="city" class="std-input" />
             </label>
             <label>
                 State:
@@ -52,28 +83,49 @@
             </label>
             <label>
                 Date:
-                <input name="date" type="date" class="std-input">
+                <input name="date" type="date" class="std-input" />
             </label>
             <label>
                 Start Time:
-                <input name="startTime" type="time" class="std-input">
+                <input name="startTime" type="time" class="std-input" />
             </label>
             <label>
                 End Time:
-                <input name="endTime" type="time" class="std-input">
+                <input name="endTime" type="time" class="std-input" />
             </label>
-            <button on:click|preventDefault={addGigHandler} class="font-bold w-24 ring-blue-200 bg-blue-200/50 rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent duration-150 ease-in-out">Add Gig</button>
+            <!-- on:click|preventDefault={addGigHandler} -->
+            <input
+                type="submit"
+                class="font-bold w-24 ring-blue-200 bg-blue-200/50 rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent duration-150 ease-in-out"
+                value="Add Gig"
+            />
         </form>
         <div class="contact-info basis-1/2 p-10 rounded-3xl">
-            <button on:click|preventDefault={pastGigsHandler} class="font-bold w-full ring-backgroundDark bg-backgroundDark rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent hover:text-backgroundDark duration-150 ease-in-out">Edit/Remove Past Gigs</button>
-            <button on:click|preventDefault={uploadCoverImageHandler} class="font-bold w-full ring-backgroundDark bg-backgroundDark rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent hover:text-backgroundDark duration-150 ease-in-out">Upload New Cover Image</button>
-            <button on:click|preventDefault={uploadPfpHandler} class="font-bold w-full ring-backgroundDark bg-backgroundDark rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent hover:text-backgroundDark duration-150 ease-in-out">Upload New Profile Picture</button>
-            <button on:click|preventDefault={editGalleryHandler} class="font-bold w-full ring-backgroundDark bg-backgroundDark rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent hover:text-backgroundDark duration-150 ease-in-out">Edit Gallery Images</button>
+            <button
+                on:click|preventDefault={pastGigsHandler}
+                class="font-bold w-full ring-backgroundDark bg-backgroundDark rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent hover:text-backgroundDark duration-150 ease-in-out"
+                >Edit/Remove Past Gigs</button
+            >
+            <button
+                on:click|preventDefault={uploadCoverImageHandler}
+                class="font-bold w-full ring-backgroundDark bg-backgroundDark rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent hover:text-backgroundDark duration-150 ease-in-out"
+                >Upload New Cover Image</button
+            >
+            <button
+                on:click|preventDefault={uploadPfpHandler}
+                class="font-bold w-full ring-backgroundDark bg-backgroundDark rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent hover:text-backgroundDark duration-150 ease-in-out"
+                >Upload New Profile Picture</button
+            >
+            <button
+                on:click|preventDefault={editGalleryHandler}
+                class="font-bold w-full ring-backgroundDark bg-backgroundDark rounded-lg mt-3 p-3 hover:ring-2 hover:bg-transparent hover:text-backgroundDark duration-150 ease-in-out"
+                >Edit Gallery Images</button
+            >
         </div>
     </div>
     <Gigs />
 
-    <Footer/>
+    <Footer />
 </main>
 
 <style>
@@ -113,7 +165,12 @@
         margin: 0.5rem 0;
     }
 
-    .email-form input, select {
+    .email-form input[type='submit'] {
+        color: var(--fontColor);
+    }
+
+    .email-form input,
+    select {
         border-radius: 0.25rem;
         color: black;
         padding: 0.25rem;
@@ -124,5 +181,4 @@
         left: 25%;
         width: 65%;
     }
-
 </style>
